@@ -1,0 +1,18 @@
+{
+  "name": "@exavault/evapi-javascript-samples",
+  "version": "2.0.0",
+  "description": "ExaVault API samples",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@exavault/exavault-api": "^2.0.0",
+    "csv-stringify": "^5.5.1",
+    "dotenv": "^8.2.0",
+    "moment": "^2.27.0",
+    "superagent": "^6.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
