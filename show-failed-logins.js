@@ -3,37 +3,50 @@ require('dotenv').config();
 
 const moment = require('moment');
 
+/**
+ * show-failed-logins.js - Use the ActivityApi to retrieve the list of users who had failed logins 
+ * in the last 24 hours.
+ */
+
 const ExaVaultApi = require('@exavault/exavault-api');
 
-// Create API object instance. Account name specified by using corresponding environment variable (EV_ACCOUNT_NAME)
+/**
+ * To use this script, add your credentials to a file named .env which is located in the same directory as this script
+ * 
+ * Your API key will be the EV_API_KEY
+ * Your access token will be EV_ACCESS_TOKEN
+ * Your account name will be EV_ACCOUNT_NAME
+ * 
+ * To obtain your API Key and Token, you'll need to use the Developer page within the web file manager
+ * See https://www.exavault.com/developer/api-docs/#section/Obtaining-Your-API-Key-and-Access-Token
+ * 
+ * Access tokens do not expire, so you should only need to obtain the key and token once.
+ * 
+ * Your account URL is determined by the name of your account. 
+ * The URL that you will use is https://accountname.exavault.com/api/v2/ replacing the "accountname" part with your
+ *   account name
+ * See https://www.exavault.com/developer/api-docs/#section/Introduction/The-API-URL
+ */
+const evApiKey = process.env.EV_API_KEY;
+const evAccessToken = process.env.EV_ACCESS_TOKEN;
+
+// We are demonstrating the use of the ActivityApi, which can be used to retrieve session and webhook logs
+// We have to override the default configuration of the ActivityApi object with an updated account name so that our code
+//  will reach the correct URL for the api.
 const activityApi = new ExaVaultApi.ActivityApi(
   new ExaVaultApi.ApiClient({
     'accountname': process.env.EV_ACCOUNT_NAME
   })
 );
 
-// Use environment variables for api key (EV_API_KEY) and access token (EV_ACCESS_TOKEN) which are required for calling ExaVault API
-const evApiKey = process.env.EV_API_KEY;
-const evAccessToken = process.env.EV_ACCESS_TOKEN;
+// The getSessionLogs method of the ActivityApi class will give us access activity logs for our account
+// See https://www.exavault.com/developer/api-docs/#operation/getSessionLogs for the details of this method
 
-// Process and display retrieved data
-function activityCallback(error, data) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('List of failed logins:');
+// We must pass in our API Key and Access Token with every call, which we retrieved from the .env file above
+// This method also supports filtering parameters to limit the results returned. Check the link to 
+// our API documentation for a list of those parameters.
 
-    // Extract only failed login and get only usernames and dates
-    const tabularData = data.data.filter(
-      item => item.attributes.status === "failed"
-    ).map(item => {
-      return [item.attributes.username, moment(item.attributes.created).format("YYYY-MM-DD HH:mm:ss")];
-    });
-
-    console.table(tabularData);
-  }
-}
-
+// Create two dates with one day difference
 const now = moment();
 const dayBefore = now.clone().subtract(1, 'd');
 
@@ -52,3 +65,26 @@ activityApi.getSessionLogs(
   },
   activityCallback
 );
+
+// Process and display retrieved data
+function activityCallback(error, data) {
+  if (error) {
+    console.error(error.response ? "Error: " + error.response.text : error);
+  } else {
+
+    // Extract only failed login and get only usernames and dates
+    const tabularData = data.data.filter(
+      item => item.attributes.status === "failed"
+    ).map(item => {
+      return [item.attributes.username, moment(item.attributes.created).format("YYYY-MM-DD HH:mm:ss")];
+    });
+
+    if (tabularData.length === 0) {
+      console.log("There is no failed logins for the last 24 hours");
+    } else {
+      console.log('List of failed logins:');
+      // Display failed in a log table
+      console.table(tabularData);
+    }
+  }
+}

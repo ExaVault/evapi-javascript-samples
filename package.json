@@ -13,6 +13,10 @@
     "moment": "^2.27.0",
     "superagent": "^6.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExaVault/evapi-javascript-samples.git"
+  },
   "author": "support@exavault.com",
   "license": "MIT"
 }
