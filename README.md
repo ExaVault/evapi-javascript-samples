@@ -1,22 +1,22 @@
-# ExaVault JavaScript API Code Samples - v2.0
+# ExaVault JavaScript API Code Samples - v2 API
 
 ## Introduction
 
-Welcome to the sample code for ExaVault's JavaScript code library, which demonstrates how to use various aspects of our API with your ExaVault account. The JavaScript code library is available as a npm package and [on Github](https://github.com/ExaVault/evapi-javascript).
+Welcome to the sample code for ExaVault's JavaScript code library, which demonstrates how to use various aspects of our API with your ExaVault account. The JavaScript code library is available as [an npm package](https://www.npmjs.com/package/@exavault/exavault-api) and [on Github](https://github.com/ExaVault/evapi-javascript).
 
 ## Requirements
 
-**Install Node.js**
-
-[Node.js](https://nodejs.org/) should be installed in the system. The latest version can be downloaded [here](https://nodejs.org/en/download/). The code was tested on version 10 and higher. Therefore we suggest version 10+. Check your current Node.js version by running `node -v`:
+To run these scripts, you'll need [Node.js](https://nodejs.org/)  version 10 or higher installed. The latest version can be downloaded [here](https://nodejs.org/en/download/).  Check your current Node.js version by running `node -v`:
 ```bash
 $ node -v
 v12.16.3
 ```
 
+You will also need an ExaVault account as well as and an API key and access token.
+
 ## Running Your First Sample
 
-**Step 1. Install code samples**
+**Step 1. Download the code samples**
 
 You may get code samples by doing one of the following:
 
@@ -64,7 +64,13 @@ found 15 vulnerabilities (9 low, 6 high)
 
 Normally they are not breaking the code, but you may want to fix vulnerabilities by running `npm audit` and then following the recommendations.
 
-**Step 3 - Add Your API Credentials to the sample code**
+**Step 3 - Get your API Credentials**
+
+The next step is to generate an API key and token from your ExaVault account. You'll need to log into the ExaVault web file manager, as an admin-level user, to get the API key and access token. See our [API reference documentation](https://www.exavault.com/developer/api-docs/v2/#section/Obtaining-Your-API-Key-and-Access-Token) for the step-by-step guide to create your key and token.
+
+If you are not an admin-level user of an ExaVault account, you'll need someone with admin-level access to follow the steps and give you the API key and access token.
+
+**Step 4 - Add Your API Credentials to the sample code**
 
 Before you can make an API call, you'll need to make a copy of the environment file provided with this code library. In that same directory where you ran `npm install` above, do:
 
@@ -80,7 +86,7 @@ Now that you have a file named .env, you need to add in your API credentials. Ed
 
 And save the file.
 
-**Step 4 - Run the sample script**
+**Step 5 - Run the sample script**
 
 Now you're ready to run your first sample. Try `get-account` first
 
@@ -93,6 +99,7 @@ If everything worked, the sample code will run and connect to your account. You'
 node get-account.js
 Account used: 21.9GB (6.3%)
 Total size: 350GB
+Primary Email Address: tim@apple.com
 ```
 
 ## Running Other Sample Files
@@ -168,7 +175,7 @@ api.getAccount(evApiKey, evAccessToken, {}, function(error, data) {
 });
 ```
 
-As you can see, callback receives two agruments for errors and response data.
+As you can see, each callback receives two agruments for errors and response data.
 
 
 
