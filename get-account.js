@@ -39,7 +39,8 @@ const api = new ExaVaultApi.AccountApi(
 // See https://www.exavault.com/developer/api-docs/#operation/getAccount for the details of this method
 
 // We must pass in our API Key and Access Token with every call, which we retrieved from the .env file above
-api.getAccount(evApiKey, evAccessToken, {}, accountCallback);
+// We are also passing in a value for the "include" parameter so that the master user's data will be returned in the included array of the response
+api.getAccount(evApiKey, evAccessToken, {"include": "masterUser"}, accountCallback);
 
 // Process account response results in callback function
 function accountCallback(error, result) {
@@ -61,5 +62,8 @@ function accountCallback(error, result) {
 
     console.log("Account used: " + (Math.round(gbUsed * 10) / 10) + "GB (" + (Math.round(percentUsed * 10) / 10) + "%)");
     console.log("Total size: " + (Math.round(gbTotal * 10) / 10) + "GB");
+
+    // The included array will contain the master user information, which will tell us the primary email address for the account
+    console.log("Primary email address: " + result.included[0].attributes.email);
   }
 };
