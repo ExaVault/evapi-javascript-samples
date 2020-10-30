@@ -93,22 +93,29 @@ function downloadFiles() {
       console.error(error.response ? "Error: " + error.response.text : error);
     } else {
 
+      console.log(`Found ${data.data.length} CSV file(s) to download`);
+
       // We are going to save the IDs of all the files we want to download into an array
-      const resourceIds = data.data.map(resource => 'id:' + resource.id);
+      const resourceIds = data.data.map(resource => {
+        console.log(resource.attributes.path);
+        return 'id:' + resource.id;
+      });
 
       // When download completes call callback function that saves a file
       const downloadCallback = function(error, data, response) {
+
+        const downloadPath = path.resolve("./files/download-csv-sample.zip");
 
         // Write downloaded files to the archive
         // The body of the result is the binary content of our file(s), 
         // We write that content into a single file, named with .zip if there were multiple files 
         // downloaded
-        fs.writeFile(path.resolve("./files/download-csv-sample.zip"), response.body, function(error) {
+        fs.writeFile(downloadPath, response.body, function(error) {
           if (error) {
             console.error(error.response ? "Error: " + error.response.text : error);
           }
 
-          console.log("Download completed to ./files/download-csv-sample.zip");
+          console.log(`File(s) downloaded to ${downloadPath}`);
         });
 
         if (error) {

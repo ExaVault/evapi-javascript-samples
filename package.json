@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@exavault/exavault-api": "^2.0.1",
+    "@exavault/exavault-api": "^2.1.0",
     "csv-stringify": "^5.5.1",
     "dotenv": "^8.2.0",
     "moment": "^2.27.0",

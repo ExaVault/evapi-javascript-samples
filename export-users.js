@@ -111,16 +111,17 @@ function listUsersCallback(error, data) {
       }
 
       const csvOutput = csvStringify(csvData);
+      const csvFilePath = path.resolve('./files/users-export.csv');
 
       // We are creating a CSV file in the 'files' directory
 
       // Write user list to a file
-      fs.writeFile(path.resolve('./files/users-export.csv'), csvOutput, function(error) {
+      fs.writeFile(csvFilePath, csvOutput, function(error) {
         if (error) {
           console.error(error.response ? "Error: " + error.response.text : error);
         }
 
-        console.log("Users successfully exported to ./files/users-export.csv");
+        console.log(`Listed: ${users.length} users to ${csvFilePath}`);
       })
     }
   }

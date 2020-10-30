@@ -73,11 +73,27 @@ function activityCallback(error, data) {
   } else {
 
     // Extract only failed login and get only usernames and dates
-    const tabularData = data.data.filter(
+    const failedLoginsData = data.data.filter(
       item => item.attributes.status === "failed"
-    ).map(item => {
-      return [item.attributes.username, moment(item.attributes.created).format("YYYY-MM-DD HH:mm:ss")];
+    ).reduce(function(data, item) {
+      const username = item.attributes.username;
+
+      if (data[username] === undefined) {
+        data[username] = 0;
+      }
+
+      data[username] += 1;
+
+      return data;
+    }, {});
+
+    const tabularData = Object.keys(failedLoginsData).map(function(username) {
+      return {"User": username, "Count": failedLoginsData[username]};
     });
+    
+    // .map(item => {
+    //   return [item.attributes.username, moment(item.attributes.created).format("YYYY-MM-DD HH:mm:ss")];
+    // });
 
     if (tabularData.length === 0) {
       console.log("There is no failed logins for the last 24 hours");

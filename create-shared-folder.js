@@ -67,6 +67,9 @@ function addFolderCallback(error, data) {
   } else {
 
     const resourceId = data.data.id;
+    const sharePassword = "testpassworD1";
+
+    console.log(`Created new folder ${path}`);
 
     // Now we can use the SharesApi to share the folder.
     // We have to override the default configuration of the API object with an updated account name so that our code
@@ -90,7 +93,7 @@ function addFolderCallback(error, data) {
         "type": "shared_folder",
         "name": "test sfdsdfs",
         "resources": ["id:" + resourceId],
-        "password": "testpassworD1"
+        "password": sharePassword
       }
     };
 
@@ -103,11 +106,12 @@ function addFolderCallback(error, data) {
     );
 
     // Log information in a callback function
-    function addShareCallback(error, data) {
+    function addShareCallback(error, result) {
       if (error) {
         console.error(error.response ? "Error: " + error.response.text : error);
       } else {
-        console.log("Folder has been shared");
+        console.log(`Created shared folder ${result.data.attributes.hash} for ${path}`);
+        console.log(`Password to access the folder is ${sharePassword}`);
       }
     }
   }

@@ -65,7 +65,7 @@ function callback(error, data) {
   if (error) {
     console.error(error.response ? "Error: " + error.response.text : error);
   } else {
-    console.log('File "' + data.data.attributes.path + '" uploaded successfully');
+    console.log(`Uploaded ${data.data.attributes.path}`);
   }
 };
 

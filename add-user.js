@@ -72,10 +72,12 @@ api.addUser(
 );
 
 // In the callback funciton we log information if there was an error or it was successful operation
-function addUserCallback(error) {
+function addUserCallback(error, result) {
   if (error) {
     console.error(error.response ? "Error: " + error.response.text : error);
   } else {
-    console.log('User has been created');
+    const username = result.data.attributes.username;
+    const id = result.data.id;
+    console.log('Created new user ' + username + ' as ID #' + id);
   }
 }

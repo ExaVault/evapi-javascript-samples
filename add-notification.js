@@ -65,6 +65,8 @@ function addFolderCallback(error, data) {
     console.error(error.response ? "Error: " + error.response.text : error);
   } else {
 
+    console.log(`Created new folder ${uploadFolder}`);
+
     // This is ID of newly created folder
     const resourceId = data.data.id;
 
@@ -82,7 +84,7 @@ function addFolderCallback(error, data) {
       if (error) {
         console.error(error.response ? "Error: " + error.response.text : error);
       } else {
-        console.log("Notification has been created");
+        console.log(`Created upload notification for ${uploadFolder}`);
       }
     }
 

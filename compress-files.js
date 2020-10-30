@@ -2,6 +2,7 @@
 require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
+const moment = require('moment');
 
 /**
  * compress-files.js - Use the Resources API to compress files 
@@ -52,6 +53,7 @@ const file = fs.createReadStream(filePath);
 
 const fileNumber = 5;
 let filesUploaded = 0;
+const parentFolder = "api-sample-code-" + moment().unix();
 
 function uploadCallback() {
   // Count each uploaded file
@@ -59,6 +61,7 @@ function uploadCallback() {
 
   // Call compress function when all files have been uploaded
   if (filesUploaded === fileNumber) {
+    console.log("Uploaded starting files to " + parentFolder);
     compressFiles();
   }
 }
@@ -67,7 +70,7 @@ function uploadCallback() {
 for (let i = 0; i < fileNumber; i++) {
   // The uploadFile method of the ResourcesApi class will let us upload a file to our account
   // See https://www.exavault.com/developer/api-docs/#operation/uploadFile for the details of this method
-  api.uploadFile(evApiKey, evAccessToken, '/api-sample-code/users' + i + '.csv', stat.size, {'file': file}, uploadCallback);
+  api.uploadFile(evApiKey, evAccessToken, `/${parentFolder}/users${i}.csv`, stat.size, {'file': file}, uploadCallback);
 }
 
 // Next we are going to use the same ResourcesApi to compress those files into a zip file
@@ -113,11 +116,11 @@ function compressFiles() {
       );
 
       // When compress completes call callback function
-      function compressCallback (error, data) {
+      function compressCallback(error, data) {
         if (error) {
           console.error(error.response ? "Error: " + error.response.text : error);
         } else {
-          console.log('Files compressed successfully to ' + data.data.attributes.path);
+          console.log('Created archive at ' + data.data.attributes.path);
         }
       };
     }
