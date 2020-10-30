@@ -105,7 +105,7 @@ upload-file.js       | Upload a file to your account.<br />_\*uploads sample JPG
 
 If you see this error, this means the script can't read settings from the `.env` file. Make sure you're running a sample script from the root directory.
 
-Another reason of this error might be that `EV_ACCOUNT_NAME` variable in `.env` isn't correct. Check your account name and fix it if needed.
+Another reason of this error might be that `EV_ACCOUNT_URL` variable in `.env` isn't correct. Check your account name and fix it if needed.
 
 **Error: {"responseStatus":401,"errors":[{"code":"ERROR_INVALID_CREDENTIALS","detail":"HTTP_UNAUTHORIZED"}]}**
 
