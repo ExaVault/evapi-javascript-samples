@@ -41,30 +41,10 @@ The output of this command when running successfully should look like this:
 
 ```shell
 added 26 packages from 35 contributors and audited 26 packages in 4.393s
-
-3 packages are looking for funding
-  run `npm fund` for details
-
 found 0 vulnerabilities
 ```
 
-Sometimes there can be some warnings from npm like this:
-
-```bash
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules\fsevents):
-```
-
-or 
-
-```bash
-audited 34090 packages in 14.711s
-found 15 vulnerabilities (9 low, 6 high)
-  run `npm audit fix` to fix them, or `npm audit` for details 
-```
-
-Normally they are not breaking the code, but you may want to fix vulnerabilities by running `npm audit` and then following the recommendations.
-
-**Step 3 - Get your API Credentials**
+**Step 2 - Get your API Credentials** 
 
 The next step is to generate an API key and token from your ExaVault account. You'll need to log into the ExaVault web file manager, as an admin-level user, to get the API key and access token. See our [API reference documentation](https://www.exavault.com/developer/api-docs/v2/#section/Obtaining-Your-API-Key-and-Access-Token) for the step-by-step guide to create your key and token.
 
@@ -135,49 +115,9 @@ This error tells that access token and/or api key is invalid. Check `EV_API_KEY`
 
 If you encounter any other issues running this sample code, you can contact ExaVault support for help at support@exavault.com.
 
-## Writing Your Own Code
+## Next Steps
 
-When you're ready to write your own code, you can use our sample code as examples. You'll need to:
-
-1. Install our code library using 
-```bash
-npm install @exavault/exavault-api --save
-```
-2. Install `dotenv` package to be able to load environment variables from `.env` file
-```bash
-npm install dotenv --save
-```
-3. Depending on what API you're going to use, create an API object appropriately. For instance, to work with account API, create `AccountApi` object. When instantiating an API object, pass an `ApiClient` instance configured with your account name to it with `process.env.EV_ACCOUNT_NAME` as in example below. Access token and API key should be retrieved from environment variable as in the code below.  Here is the minimal code you need to call an API endpoint:
-
-```javascript
-require('dotenv').config();
-
-const ExaVaultApi = require('@exavault/exavault-api');
-
-const evApiKey = process.env.EV_API_KEY;
-const evAccessToken = process.env.EV_ACCESS_TOKEN;
-
-const api = new ExaVaultApi.AccountApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
-
-api.getAccount(evApiKey, evAccessToken);
-```
-
-To get response data JavaScript library uses callbacks that is the last argument in an API method. For example, to get account data in the example above:
-
-```javascript
-api.getAccount(evApiKey, evAccessToken, {}, function(error, data) {
-    // Use `data` argument to access response data
-    // Use `error` argument to access any errors
-});
-```
-
-As you can see, each callback receives two agruments for errors and response data.
-
-
+To get started writing your own code, you may either modify our samples, or download and install our library into your existing project via npm. For details, see the [ExaVault Javascript API Library repo](https://github.com/ExaVault/evapi-javascript).
 
 ## Author
 
