@@ -29,6 +29,7 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the ResourcesApi, which is used for file operations (upload, download, delete, etc)
 //
@@ -37,11 +38,10 @@ const evAccessToken = process.env.EV_ACCESS_TOKEN;
 
 // We have to override the default configuration of the API object with an updated account name so that our code
 //  will reach the correct URL for the api. We have to override this setting for each of the API classes we use
-const api = new ExaVaultApi.ResourcesApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const api = new ExaVaultApi.ResourcesApi(ApiClient);
 
 // First upload some csv files into account
 // Get full paths to the file from the samples directory

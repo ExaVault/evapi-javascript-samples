@@ -25,15 +25,15 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the AccountAPI, which can be used to manage the account settings 
 // We have to override the default configuration of the AccountApi with an updated account name so that our code
 //  will reach the correct URL for the api.
-const api = new ExaVaultApi.AccountApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const api = new ExaVaultApi.AccountApi(ApiClient);
 
 // The getAccount method of the AccountApi class will give us access to the current status of our account
 // See https://www.exavault.com/developer/api-docs/#operation/getAccount for the details of this method

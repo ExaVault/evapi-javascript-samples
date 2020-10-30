@@ -29,15 +29,15 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the UsersApi, which can be used to retrieve user settings and create a report
 // We have to override the default configuration of the UserApi object with an updated account name so that our code
 //  will reach the correct URL for the api.
-const api = new ExaVaultApi.UsersApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const api = new ExaVaultApi.UsersApi(ApiClient);
 
 // Results returned in api one call
 const resultLimit = 50;

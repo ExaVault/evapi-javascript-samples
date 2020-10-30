@@ -27,6 +27,7 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the SharesApi, which is used for managing shared folders and receives,
 // as well as for sending files. See our Sharing 101 documentation at
@@ -37,11 +38,10 @@ const evAccessToken = process.env.EV_ACCESS_TOKEN;
 //
 // We have to override the default configuration of the API object with an account name so that our code
 //  will reach the correct URL for the api. We have to override this setting for each of the API classes we use
-const resourcesApi = new ExaVaultApi.ResourcesApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const resourcesApi = new ExaVaultApi.ResourcesApi(ApiClient);
 
 // We will create a new folder for the demo. The folder will have a different name each time you run this script
 const path = '/api-sample-code/share-sample-' + moment().unix();
@@ -74,11 +74,7 @@ function addFolderCallback(error, data) {
     // Now we can use the SharesApi to share the folder.
     // We have to override the default configuration of the API object with an updated account name so that our code
     // will reach the correct URL for the api.
-    const sharesApi = new ExaVaultApi.SharesApi(
-      new ExaVaultApi.ApiClient({
-        'accountname': process.env.EV_ACCOUNT_NAME
-      })
-    );
+    const sharesApi = new ExaVaultApi.SharesApi(ApiClient);
     
     // API methods that take a JSON body, such as the addShare method, require us to submit an object with the 
     // parameters we want to send to the API. 

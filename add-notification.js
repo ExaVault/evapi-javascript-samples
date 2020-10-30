@@ -27,6 +27,7 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the NotificationsApi, which can be used to manage notification settings 
 //  for files and folders
@@ -35,13 +36,13 @@ const evAccessToken = process.env.EV_ACCESS_TOKEN;
 // an existing file or folder that you want to create a notification for, you won't need the step where
 // we use the ResourcesApi to create the folders first.
 //
+
 // We have to override the default configuration of the API object with an updated account name so that our code
 //  will reach the correct URL for the api. We have to override this setting for each of the API classes we use
-const resourcesApi = new ExaVaultApi.ResourcesApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const resourcesApi = new ExaVaultApi.ResourcesApi(ApiClient);
 
 // We will create a new folder for the demo. The folder will have a different name each time you run this script
 const uploadFolder = '/api-sample-code/notification-sample-' + moment().unix();
@@ -73,11 +74,7 @@ function addFolderCallback(error, data) {
     // Now we can use the NotificationsApi to create a notification
     // We have to override the default configuration of the API object with an updated account name so that our code
     //  will reach the correct URL for the api.
-    const notificationsApi = new ExaVaultApi.NotificationsApi(
-      new ExaVaultApi.ApiClient({
-        'accountname': process.env.EV_ACCOUNT_NAME
-      })
-    );
+    const notificationsApi = new ExaVaultApi.NotificationsApi(ApiClient);
 
     // This is callback function that will be called after we add notification to a folder
     function addNotificationCallback(error, data) {

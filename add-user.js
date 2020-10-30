@@ -27,16 +27,16 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the UsersApi, which is used to create, update and remove users in your account.
 //
 // We have to override the default configuration of the API object with an account name so that our code
 //  will reach the correct URL for the api.
-const api = new ExaVaultApi.UsersApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const api = new ExaVaultApi.UsersApi(ApiClient);
 
 // API methods that take a JSON body, such as the addUser method, require us to submit an object with the 
 // parameters we want to send to the API. 

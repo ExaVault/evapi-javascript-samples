@@ -29,15 +29,15 @@ const ExaVaultApi = require('@exavault/exavault-api');
  */
 const evApiKey = process.env.EV_API_KEY;
 const evAccessToken = process.env.EV_ACCESS_TOKEN;
+const evAccountUrl = process.env.EV_ACCOUNT_URL;
 
 // We are demonstrating the use of the ActivityApi, which can be used to retrieve session and webhook logs
 // We have to override the default configuration of the ActivityApi object with an updated account name so that our code
 //  will reach the correct URL for the api.
-const activityApi = new ExaVaultApi.ActivityApi(
-  new ExaVaultApi.ApiClient({
-    'accountname': process.env.EV_ACCOUNT_NAME
-  })
-);
+const ApiClient = new ExaVaultApi.ApiClient();
+ApiClient.basePath = evAccountUrl;
+
+const activityApi = new ExaVaultApi.ActivityApi(ApiClient);
 
 // The getSessionLogs method of the ActivityApi class will give us access activity logs for our account
 // See https://www.exavault.com/developer/api-docs/#operation/getSessionLogs for the details of this method
