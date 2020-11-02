@@ -71,12 +71,12 @@ And save the file.
 Now you're ready to run your first sample. Try `get-account` first
 
 ```bash
-node get-account.js
+node sample-get-account.js
 ```
 If everything worked, the sample code will run and connect to your account. You'll see output similar to this:
 
 ```bash
-node get-account.js
+node sample-get-account.js
 Account used: 21.9GB (6.3%)
 Total size: 350GB
 Primary Email Address: tim@apple.com
@@ -87,17 +87,17 @@ Primary Email Address: tim@apple.com
 There are several other sample files that you can now run. You won't need to repeat the steps to set up the .env file each time - the same environment information is used for all of the sample scripts.
 Some of the sample scripts will make changes to your account (uploading, creating shares or notifications, etc). Those are marked with an asterisk below:
 
-Script                        | Purpose    \*=Makes changes to your account when run                                   | APIs Used                      |
+Script                        | Purpose                                                                                | APIs Used                      |
 ------------------------------|----------------------------------------------------------------------------------------|--------------------------------|
-get-account.js   | List the amount of available space for your account                                    | AccountApi                     |
-add-notification.js  | Add upload notifications<br/>_\*adds folders to your account_             | ResourcesApi, NotificationsApi |
-add-user.js           | Add a new user with a home directory <br/>_\*adds a user and a folder to your account_ | UsersApi                       |
-compress-files.js     | Compress several files into a zip file <br/>_\*adds files and folders to your account_ | ResourcesApi                   |
-download-files.js | Search for files matching a certain extension, then download them.                     | ResourcesApi                   |
-show-failed-logins.js  | List usernames who had a failed login in the last 24 hours                             | ActivityApi                    |
-export-users.js         | Exports users in your account to CSV file                                             | UsersApi                       |
-create-shared-folder.js      | Create a new shared folder with a password<br />_\*adds a folder to your account_      | ResourcesApi, SharesApi        |
-upload-file.js       | Upload a file to your account.<br />_\*uploads sample JPG to your account_            | ResourcesApi                   |
+sample-get-account.js   | List the amount of available space for your account                                    | AccountApi                     |
+sample-add-notification.js  | Add upload notifications<br/>_\*adds folders to your account_             | ResourcesApi, NotificationsApi |
+sample-add-user.js           | Add a new user with a home directory <br/>_\*adds a user and a folder to your account_ | UsersApi                       |
+sample-compress-files.js     | Compress several files into a zip file <br/>_\*adds files and folders to your account_ | ResourcesApi                   |
+sample-download-files.js | Search for files matching a certain extension, then download them.                     | ResourcesApi                   |
+sample-show-failed-logins.js  | List usernames who had a failed login in the last 24 hours                             | ActivityApi                    |
+sample-export-users.js         | Exports users in your account to CSV file                                             | UsersApi                       |
+sample-create-shared-folder.js      | Create a new shared folder with a password<br />_\*adds a folder to your account_      | ResourcesApi, SharesApi        |
+sample-upload-file.js       | Upload a file to your account.<br />_\*uploads sample jpgs to your account_            | ResourcesApi                   |
 
 ## If Something Goes Wrong
 
