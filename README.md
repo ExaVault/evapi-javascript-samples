@@ -71,12 +71,12 @@ And save the file.
 Now you're ready to run your first sample. Try `get-account` first
 
 ```bash
-node sample-get-account.js
+% node sample-get-account.js
 ```
 If everything worked, the sample code will run and connect to your account. You'll see output similar to this:
 
 ```bash
-node sample-get-account.js
+% node sample-get-account.js
 Account used: 21.9GB (6.3%)
 Total size: 350GB
 Primary Email Address: tim@apple.com
