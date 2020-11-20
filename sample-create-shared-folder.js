@@ -89,7 +89,11 @@ function addFolderCallback(error, data) {
         "type": "shared_folder",
         "name": "test sfdsdfs",
         "resources": ["id:" + resourceId],
-        "password": sharePassword
+        "password": sharePassword,
+        "accessMode": {
+          "download": true,
+          "upload": true
+        }
       }
     };
 
